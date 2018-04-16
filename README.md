@@ -5,7 +5,7 @@ Upload custom emojis to Slack. You can upload files from the following sources:
   - Directory
   - Hipchat
 
-Requires python 3.6+.
+Requires Python 3.6+.
 
 ## Usage
 
