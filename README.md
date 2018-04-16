@@ -25,7 +25,7 @@ python slackmoji /path/to/emojis --workspace myworkspace --email foo@example.com
 ### Upload from emojipack
 
 ```bash
-slackmoji /path/to/emojipack --workspace myworkspace --email foo@example.com --format emojipack
+python slackmoji /path/to/emojipack --workspace myworkspace --email foo@example.com --format emojipack
 ```
 
 ### Upload from Hipchat
@@ -33,7 +33,7 @@ slackmoji /path/to/emojipack --workspace myworkspace --email foo@example.com --f
 Go to https://{you_workspace}.hipchat.com/emoticons and download the source url.
 
 ```bash
-slackmoji /path/to/source_url --workspace myworkspace --email foo@example.com --format hipchat
+python slackmoji /path/to/source_url --workspace myworkspace --email foo@example.com --format hipchat
 ```
 
 ## Debugging
