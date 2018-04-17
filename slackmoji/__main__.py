@@ -1,8 +1,7 @@
-import getpass
-import argparse
-
 import sys
 import pathlib
+import getpass
+import argparse
 import collections
 
 import box
@@ -57,14 +56,14 @@ class Slack:
         assert crumb is not None, 'Login error: could not get emoji upload crumb'
         return crumb.attrs['value']
 
-    def upload(self, name, data):
+    def upload(self, name, img):
         payload = {
             'add': '1',
             'crumb': self.upload_crumb,
             'name': name,
             'mode': 'data'
         }
-        result = self.session.post(self.upload_image_url, data=payload, files={'img': data})
+        result = self.session.post(self.upload_image_url, data=payload, files={'img': img})
         assert result.status_code == 200
 
 
@@ -96,10 +95,10 @@ def iter_emojipack(path):
 def iter_emojis(emojis):
     for emoji in emojis:
         if pathlib.Path(emoji.src).is_file():
-            data = open(emoji.src, 'rb')
+            img = open(emoji.src, 'rb')
         else:
-            data = requests.get(emoji.src).content
-        yield emoji.name, data
+            img = requests.get(emoji.src).content
+        yield emoji.name, img
 
 
 iterators = {
@@ -121,9 +120,9 @@ def upload_emojis(path, workspace, email, password, format, dry_run):
         sys.exit()
     slack = Slack(workspace, email, password)
     print('Successfully logged in')
-    for name, data in iter_emojis(emoji_box.emojis):
-        slack.upload(name, data)
-        print(f"Uploaded emoji {name}")
+    for name, img in iter_emojis(emoji_box.emojis):
+        slack.upload(name, img)
+        print(f'Uploaded emoji {name}')
 
 
 def create_parser():
